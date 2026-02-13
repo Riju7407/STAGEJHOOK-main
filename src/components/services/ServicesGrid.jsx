@@ -1,0 +1,59 @@
+import React from 'react';
+import { servicesData } from '../../assets/data/servicesData';
+
+const ServicesGrid = () => {
+  return (
+    <section className="py-20 px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {servicesData.map((service, index) => (
+            <div
+              key={index}
+              className="group bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#c41e3a] hover:-translate-y-3"
+            >
+              {/* Icon */}
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-[#c41e3a] to-[#8b0000] rounded-full flex items-center justify-center">
+                <svg 
+                  className="w-10 h-10 text-white" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d={service.iconPath}
+                  />
+                </svg>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-gray-600 leading-relaxed mb-6 text-center">
+                {service.description}
+              </p>
+
+              {/* Link */}
+              <a
+                href={`#${service.id}`}
+                className="text-[#c41e3a] font-semibold flex items-center justify-center gap-2 group-hover:gap-4 transition-all duration-300"
+              >
+                Learn More
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ServicesGrid;
