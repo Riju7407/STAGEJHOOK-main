@@ -3,10 +3,17 @@ services:
     name: stagejhook-backend
     env: node
     plan: free
-    buildCommand: npm install && cd server && npm install && cd ..
+    rootDir: ./
+    buildCommand: cd server && npm install && cd ..
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
-        value: your_jwt_secret_here
+        scope: project
+      - key: MONGODB_URI
+        scope: project
+      - key: BLOB_READ_WRITE_TOKEN
+        scope: project
+      - key: FRONTEND_URL
+        scope: project
