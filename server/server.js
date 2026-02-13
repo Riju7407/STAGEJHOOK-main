@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
+import uploadRoutes from './routes/upload.js';
+import Admin from './models/Admin.js';
 
 dotenv.config();
 
@@ -14,15 +17,70 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// MongoDB Connection
+async function connectDatabase() {
+  try {
+    const mongoUri = process.env.MONGODB_URI;
+    if (!mongoUri) {
+      throw new Error('MONGODB_URI environment variable is not set');
+    }
+
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+
+    console.log('✅ Connected to MongoDB');
+    await seedDefaultAdmin();
+  } catch (error) {
+    console.error('❌ MongoDB Connection Error:', error);
+    console.log('⚠️  Retrying in 5 seconds...');
+    setTimeout(connectDatabase, 5000);
+  }
+}
+
+// Seed default admin user
+async function seedDefaultAdmin() {
+  try {
+    const existingAdmin = await Admin.findOne({ email: 'admin@stagejhook.com' });
+    
+    if (!existingAdmin) {
+      const newAdmin = new Admin({
+        email: 'admin@stagejhook.com',
+        password: 'admin123',
+        name: 'Admin User',
+        role: 'super_admin'
+      });
+      
+      await newAdmin.save();
+      console.log('✅ Default admin user created: admin@stagejhook.com / admin123');
+    } else {
+      console.log('✅ Default admin user already exists');
+    }
+  } catch (error) {
+    console.error('❌ Error seeding default admin:', error);
+  }
+}
+
+// Connect to database
+connectDatabase();
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'Server is running', timestamp: new Date() });
+  res.json({ 
+    status: 'Server is running',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    timestamp: new Date()
+  });
 });
 
 // Error handling middleware

@@ -23,12 +23,23 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const adminOnly = (req, res, next) => {
-  if (req.admin && req.admin.role === 'admin') {
+  if (req.admin && (req.admin.role === 'admin' || req.admin.role === 'super_admin')) {
     next();
   } else {
     return res.status(403).json({
       success: false,
       message: 'Access denied. Admin privileges required.'
+    });
+  }
+};
+
+export const superAdminOnly = (req, res, next) => {
+  if (req.admin && req.admin.role === 'super_admin') {
+    next();
+  } else {
+    return res.status(403).json({
+      success: false,
+      message: 'Access denied. Super Admin privileges required.'
     });
   }
 };
