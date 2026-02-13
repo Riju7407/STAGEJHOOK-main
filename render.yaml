@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: stagejhook-backend
+    env: node
+    plan: free
+    buildCommand: npm install && cd server && npm install && cd ..
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: your_jwt_secret_here
