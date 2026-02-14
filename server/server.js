@@ -78,6 +78,23 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/exhibition', exhibitionRoutes);
 
+// Welcome route
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Welcome to STAGEJHOOK API',
+    version: '1.0.0',
+    endpoints: {
+      auth: '/api/auth',
+      upload: '/api/upload',
+      portfolio: '/api/portfolio',
+      exhibition: '/api/exhibition',
+      health: '/api/health'
+    },
+    frontend: process.env.FRONTEND_URL || 'http://localhost:5173'
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ 
