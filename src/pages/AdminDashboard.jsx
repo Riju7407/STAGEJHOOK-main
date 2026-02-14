@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { FaSignOutAlt, FaUser, FaChartBar, FaCog } from 'react-icons/fa';
 import { useAdminAuth } from '../hooks/useAdminAuth';
 import { adminAuthAPI } from '../services/adminAuthAPI';
+import PortfolioManagement from '../components/admin/PortfolioManagement';
+import ExhibitionManagement from '../components/admin/ExhibitionManagement';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { isAuthenticated, admin, logout, isAuthChecking } = useAdminAuth();
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [stats, setStats] = useState({
     totalVisitors: 1250,
     totalEnquiries: 48,
@@ -51,7 +54,7 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white shadow">
+      <header className="bg-white shadow sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
@@ -66,8 +69,48 @@ const AdminDashboard = () => {
         </div>
       </header>
 
+      {/* Navigation Tabs */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex gap-0">
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`px-6 py-4 font-medium border-b-2 transition-colors ${
+                activeTab === 'dashboard'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              📊 Dashboard
+            </button>
+            <button
+              onClick={() => setActiveTab('portfolio')}
+              className={`px-6 py-4 font-medium border-b-2 transition-colors ${
+                activeTab === 'portfolio'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              🎨 Portfolio
+            </button>
+            <button
+              onClick={() => setActiveTab('exhibitions')}
+              className={`px-6 py-4 font-medium border-b-2 transition-colors ${
+                activeTab === 'exhibitions'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              🖼️ Exhibitions
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <main>
+        {activeTab === 'dashboard' && (
+          <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Admin Info Card */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <div className="flex items-center gap-6">
@@ -195,6 +238,16 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
+          </div>
+        )}
+
+        {activeTab === 'portfolio' && (
+          <PortfolioManagement />
+        )}
+
+        {activeTab === 'exhibitions' && (
+          <ExhibitionManagement />
+        )}
       </main>
 
       {/* Logout Confirmation Modal */}
