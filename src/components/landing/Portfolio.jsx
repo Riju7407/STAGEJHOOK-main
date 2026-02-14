@@ -5,31 +5,31 @@ const Portfolio = () => {
   const portfolioItems = [
     {
       id: 1,
-      image: "/portfolio1.jpg",
+      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 2,
-      image: "/portfolio2.jpg",
+      image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=600&h=400&fit=crop",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 3,
-      image: "/portfolio3.jpg",
+      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&h=400&fit=crop",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 4,
-      image: "/portfolio4.jpg",
+      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 5,
-      image: "/portfolio5.jpg",
+      image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=600&h=400&fit=crop",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
