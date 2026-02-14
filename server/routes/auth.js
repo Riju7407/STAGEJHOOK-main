@@ -35,6 +35,7 @@ router.post('/login', async (req, res) => {
     // Find admin with password field
     const admin = await Admin.findOne({ email: email.toLowerCase() }).select('+password');
     if (!admin) {
+      console.warn(`⚠️ Login attempt with non-existent email: ${email.toLowerCase()}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -44,6 +45,7 @@ router.post('/login', async (req, res) => {
     // Verify password
     const isPasswordValid = await admin.matchPassword(password);
     if (!isPasswordValid) {
+      console.warn(`⚠️ Login attempt with wrong password for: ${email.toLowerCase()}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -56,6 +58,8 @@ router.post('/login', async (req, res) => {
 
     // Generate token
     const token = generateToken(admin);
+
+    console.log(`✅ Admin logged in successfully: ${admin.email}`);
 
     // Return response
     return res.status(200).json({
@@ -71,10 +75,10 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('❌ Login error:', error);
     return res.status(500).json({
       success: false,
-      message: 'Login failed. Please try again.'
+      message: 'Login failed. Please try again later.'
     });
   }
 });
