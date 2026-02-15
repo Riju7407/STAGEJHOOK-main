@@ -59,7 +59,17 @@ router.post('/login', async (req, res) => {
     // Generate token
     const token = generateToken(admin);
 
+    // Set HTTP-only cookie for security
+    res.cookie('adminToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
     console.log(`✅ Admin logged in successfully: ${admin.email}`);
+    console.log(`🍪 Cookie set: adminToken`);
+    console.log(`🔑 Token expires in: 7 days`);
 
     // Return response
     return res.status(200).json({
@@ -86,7 +96,13 @@ router.post('/login', async (req, res) => {
 // Admin Logout
 router.post('/logout', verifyToken, (req, res) => {
   try {
-    // In a real app, you might invalidate the token in a blacklist
+    // Clear the admin token cookie
+    res.clearCookie('adminToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax'
+    });
+
     return res.status(200).json({
       success: true,
       message: 'Logout successful'

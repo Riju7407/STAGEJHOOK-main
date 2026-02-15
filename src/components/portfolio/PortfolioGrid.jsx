@@ -1,9 +1,64 @@
-import React, { useState } from 'react';
-import { portfolioData } from '../../assets/data/portfolioData';
+import React, { useState, useEffect } from 'react';
+import { getAllPortfolios } from '../../services/portfolioAPI';
 import PortfolioModal from './PortfolioModal';
 
 const PortfolioGrid = () => {
+  const [portfolios, setPortfolios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  useEffect(() => {
+    fetchPortfolios();
+  }, []);
+
+  const fetchPortfolios = async () => {
+    try {
+      setLoading(true);
+      console.log('📂 Fetching portfolios from API...');
+      // Fetch only published portfolios
+      const response = await getAllPortfolios({ isPublished: true });
+      console.log('✅ Portfolios fetched:', response.data.length);
+      setPortfolios(response.data || []);
+      setError(null);
+    } catch (err) {
+      console.error('❌ Error fetching portfolios:', err);
+      setError('Failed to load portfolios');
+      setPortfolios([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-500">Loading portfolios...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-red-500">{error}</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!portfolios || portfolios.length === 0) {
+    return (
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-500">No portfolios available at this time.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -11,17 +66,20 @@ const PortfolioGrid = () => {
         <div className="max-w-7xl mx-auto">
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioData.map((item, index) => (
+            {portfolios.map((item) => (
               <div
-                key={index}
+                key={item._id}
                 onClick={() => setSelectedItem(item)}
                 className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer aspect-[4/3] bg-gray-200"
               >
                 {/* Image */}
                 <img
-                  src={item.image}
+                  src={item.imageUrl}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/400x300?text=Portfolio';
+                  }}
                 />
 
                 {/* Overlay */}

@@ -20,7 +20,8 @@ const apiCall = async (endpoint, options = {}) => {
 
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
-    headers
+    headers,
+    credentials: 'include' // Include cookies in requests
   });
 
   const data = await response.json();
@@ -53,8 +54,12 @@ export const adminAuthAPI = {
       await apiCall('/auth/logout', {
         method: 'POST'
       });
+    } catch (error) {
+      console.error('Logout API error:', error);
     } finally {
       removeAuthToken();
+      // Also clear any other cached data
+      localStorage.clear();
     }
   },
 

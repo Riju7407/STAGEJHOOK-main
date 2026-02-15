@@ -19,7 +19,8 @@ export async function getAllPortfolios(filters = {}) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) throw new Error('Failed to fetch portfolios');
@@ -39,7 +40,8 @@ export async function getPortfolioById(id) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) throw new Error('Portfolio not found');
@@ -61,6 +63,7 @@ export async function createPortfolio(portfolioData, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify(portfolioData)
     });
 
@@ -87,6 +90,7 @@ export async function updatePortfolio(id, portfolioData, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify(portfolioData)
     });
 
@@ -111,7 +115,8 @@ export async function deletePortfolio(id, token) {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) {
@@ -137,6 +142,7 @@ export async function publishPortfolio(id, isPublished, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify({ isPublished })
     });
 

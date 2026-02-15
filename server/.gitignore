@@ -8,3 +8,7 @@ yarn-error.log*
 *.DS_Store
 dist
 build
+
+# Uploaded files (keep directory structure with .gitkeep)
+uploads/*
+!uploads/.gitkeep

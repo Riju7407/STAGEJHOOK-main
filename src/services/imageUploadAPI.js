@@ -1,6 +1,6 @@
 /**
- * Image Upload Service - Uploads images to Vercel Blob and stores URLs in database
- * Images are not stored as files, only URLs are stored
+ * Image Upload Service - Uploads images to local server storage
+ * Images are stored on the server and URLs are stored in database
  */
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -13,8 +13,14 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
  */
 export async function uploadImage(file, token) {
   try {
+    console.log('📸 Starting image upload...', { fileName: file.name, token: token ? '✅ Present' : '❌ Missing' });
+    
     if (!file) {
       throw new Error('No file provided');
+    }
+
+    if (!token) {
+      throw new Error('Authentication token is missing. Please login again.');
     }
 
     // Validate file type (images only)
@@ -30,14 +36,17 @@ export async function uploadImage(file, token) {
 
     // Convert file to base64
     const base64 = await fileToBase64(file);
+    console.log('✅ File converted to base64');
 
     // Call upload API
+    console.log('📤 Sending upload request...');
     const response = await fetch(`${API_BASE_URL}/upload/image`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include', // Include cookies
       body: JSON.stringify({
         file: base64,
         fileName: file.name,
@@ -45,26 +54,31 @@ export async function uploadImage(file, token) {
       })
     });
 
+    console.log('📥 Upload response received:', response.status);
+
     if (!response.ok) {
       const error = await response.json();
+      console.error('❌ Upload failed:', error);
       throw new Error(error.message || 'Upload failed');
     }
 
     const data = await response.json();
     
     if (!data.success) {
+      console.error('❌ Upload unsuccessful:', data);
       throw new Error(data.message || 'Upload failed');
     }
 
+    console.log('✅ Image uploaded successfully:', data.data.url);
     return data.data.url; // Return only the URL
   } catch (error) {
-    console.error('Image upload error:', error);
+    console.error('❌ Image upload error:', error);
     throw error;
   }
 }
 
 /**
- * Delete image from Vercel Blob
+ * Delete image from server storage
  * @param {string} imageUrl - The URL or pathname of the image
  * @param {string} token - JWT authentication token
  * @returns {Promise<boolean>} - True if deletion was successful
@@ -75,17 +89,20 @@ export async function deleteImage(imageUrl, token) {
       throw new Error('No image URL provided');
     }
 
-    // Extract pathname from URL if needed
+    // Extract filename from URL
     let pathname = imageUrl;
     if (imageUrl.startsWith('http')) {
-      pathname = imageUrl.split('/blob/')[1] || imageUrl;
+      // Extract the filename from URLs like http://localhost:5000/uploads/12345-image.jpg
+      const urlParts = imageUrl.split('/uploads/');
+      pathname = urlParts.length > 1 ? urlParts[1] : imageUrl;
     }
 
     const response = await fetch(`${API_BASE_URL}/upload/image/${pathname}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
-      }
+      },
+      credentials: 'include' // Include cookies
     });
 
     if (!response.ok) {

@@ -1,18 +1,22 @@
 import express from 'express';
-import { uploadToBlob, deleteFromBlob } from '../services/blobStorage.js';
+import { uploadToLocal, deleteFromLocal } from '../services/blobStorage.js';
 import { verifyToken, adminOnly } from '../middleware/auth.js';
 
 const router = express.Router();
 
 /**
- * Upload image to Vercel Blob
- * Returns only the URL (not the binary file)
+ * Upload image to local storage
+ * Returns the URL to access the uploaded image
  */
 router.post('/image', verifyToken, adminOnly, async (req, res) => {
   try {
+    console.log('📤 Upload request received');
+    console.log('- Admin:', req.admin?.email);
+    
     const { file, fileName, contentType } = req.body;
 
     if (!file || !fileName) {
+      console.log('❌ Missing file or fileName');
       return res.status(400).json({
         success: false,
         message: 'File and fileName are required'
@@ -33,8 +37,8 @@ router.post('/image', verifyToken, adminOnly, async (req, res) => {
       });
     }
 
-    // Upload to Vercel Blob
-    const result = await uploadToBlob(
+    // Upload to local storage
+    const result = await uploadToLocal(
       fileBuffer,
       fileName,
       contentType || 'application/octet-stream'
@@ -60,7 +64,7 @@ router.post('/image', verifyToken, adminOnly, async (req, res) => {
 });
 
 /**
- * Delete image from Vercel Blob
+ * Delete image from local storage
  */
 router.delete('/image/:pathname(*)', verifyToken, adminOnly, async (req, res) => {
   try {
@@ -73,7 +77,7 @@ router.delete('/image/:pathname(*)', verifyToken, adminOnly, async (req, res) =>
       });
     }
 
-    await deleteFromBlob(pathname);
+    await deleteFromLocal(pathname);
 
     return res.status(200).json({
       success: true,

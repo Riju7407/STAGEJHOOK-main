@@ -50,9 +50,12 @@ const PortfolioModal = ({ item, onClose }) => {
         {/* Image */}
         <div className="w-full h-[400px] overflow-hidden rounded-t-2xl">
           <img
-            src={item.image}
+            src={item.imageUrl || item.image}
             alt={item.title}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.src = 'https://via.placeholder.com/800x400?text=Portfolio';
+            }}
           />
         </div>
 

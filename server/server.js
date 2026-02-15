@@ -4,11 +4,17 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.js';
 import uploadRoutes from './routes/upload.js';
 import portfolioRoutes from './routes/portfolio.js';
 import exhibitionRoutes from './routes/exhibition.js';
 import Admin from './models/Admin.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -36,6 +42,7 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(cookieParser());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
@@ -100,6 +107,10 @@ async function seedDefaultAdmin() {
 
 // Connect to database
 connectDatabase();
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+console.log('📁 Static file serving enabled for /uploads');
 
 // Routes
 app.use('/api/auth', authRoutes);

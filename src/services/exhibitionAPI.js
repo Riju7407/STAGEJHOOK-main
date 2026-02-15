@@ -19,7 +19,8 @@ export async function getAllExhibitions(filters = {}) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) throw new Error('Failed to fetch exhibitions');
@@ -39,7 +40,8 @@ export async function getExhibitionById(id) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) throw new Error('Exhibition not found');
@@ -61,6 +63,7 @@ export async function createExhibition(exhibitionData, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify(exhibitionData)
     });
 
@@ -87,6 +90,7 @@ export async function updateExhibition(id, exhibitionData, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify(exhibitionData)
     });
 
@@ -111,7 +115,8 @@ export async function deleteExhibition(id, token) {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) {
@@ -137,6 +142,7 @@ export async function publishExhibition(id, isPublished, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify({ isPublished })
     });
 
@@ -162,6 +168,7 @@ export async function registerStall(id, stallSize) {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({ stallSize })
     });
 

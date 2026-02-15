@@ -1,7 +1,7 @@
 import express from 'express';
 import Exhibition from '../models/Exhibition.js';
 import { verifyToken, adminOnly } from '../middleware/auth.js';
-import { deleteFromBlob } from '../services/blobStorage.js';
+import { deleteFromLocal } from '../services/blobStorage.js';
 
 const router = express.Router();
 
@@ -31,6 +31,7 @@ router.post('/', verifyToken, adminOnly, async (req, res) => {
       coverImageName,
       category: category || 'expo',
       status: 'upcoming',
+      isPublished: true, // Auto-publish for users to see
       capacity: capacity || 100,
       stallSize: stallSize || { small: 0, medium: 0, large: 0 },
       pricing: pricing || { small: 0, medium: 0, large: 0, currency: 'USD' },
@@ -41,9 +42,11 @@ router.post('/', verifyToken, adminOnly, async (req, res) => {
 
     await exhibition.save();
 
+    console.log(`✅ Exhibition created and published: ${exhibition.title}`);
+
     return res.status(201).json({
       success: true,
-      message: 'Exhibition created successfully',
+      message: 'Exhibition created and published successfully',
       data: exhibition
     });
   } catch (error) {
@@ -149,7 +152,7 @@ router.put('/:id', verifyToken, adminOnly, async (req, res) => {
     if (coverImageUrl) {
       if (exhibition.coverImageName) {
         try {
-          await deleteFromBlob(exhibition.coverImageName);
+          await deleteFromLocal(exhibition.coverImageName);
         } catch (err) {
           console.warn('Could not delete old image:', err);
         }
@@ -198,7 +201,7 @@ router.delete('/:id', verifyToken, adminOnly, async (req, res) => {
     // Delete cover image
     if (exhibition.coverImageName) {
       try {
-        await deleteFromBlob(exhibition.coverImageName);
+        await deleteFromLocal(exhibition.coverImageName);
       } catch (err) {
         console.warn('Could not delete cover image:', err);
       }
@@ -208,7 +211,7 @@ router.delete('/:id', verifyToken, adminOnly, async (req, res) => {
     if (exhibition.imageGallery && exhibition.imageGallery.length > 0) {
       for (const img of exhibition.imageGallery) {
         try {
-          await deleteFromBlob(img.url);
+          await deleteFromLocal(img.url);
         } catch (err) {
           console.warn('Could not delete gallery image:', err);
         }
@@ -218,7 +221,7 @@ router.delete('/:id', verifyToken, adminOnly, async (req, res) => {
     // Delete exhibition guide
     if (exhibition.exhibitionGuide?.url) {
       try {
-        await deleteFromBlob(exhibition.exhibitionGuide.url);
+        await deleteFromLocal(exhibition.exhibitionGuide.url);
       } catch (err) {
         console.warn('Could not delete exhibition guide:', err);
       }

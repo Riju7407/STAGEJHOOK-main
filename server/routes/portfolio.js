@@ -1,7 +1,7 @@
 import express from 'express';
 import Portfolio from '../models/Portfolio.js';
 import { verifyToken, adminOnly } from '../middleware/auth.js';
-import { deleteFromBlob } from '../services/blobStorage.js';
+import { deleteFromLocal } from '../services/blobStorage.js';
 
 const router = express.Router();
 
@@ -26,6 +26,7 @@ router.post('/', verifyToken, adminOnly, async (req, res) => {
       client,
       location,
       status: status || 'draft',
+      isPublished: true, // Auto-publish for users to see
       tags: tags || [],
       galleryUrls: galleryUrls || [],
       createdBy: req.admin.id
@@ -33,9 +34,11 @@ router.post('/', verifyToken, adminOnly, async (req, res) => {
 
     await portfolio.save();
 
+    console.log(`✅ Portfolio created and published: ${portfolio.title}`);
+
     return res.status(201).json({
       success: true,
-      message: 'Portfolio created successfully',
+      message: 'Portfolio created and published successfully',
       data: portfolio
     });
   } catch (error) {
@@ -126,7 +129,7 @@ router.put('/:id', verifyToken, adminOnly, async (req, res) => {
       // Delete old image if exists
       if (portfolio.imageName) {
         try {
-          await deleteFromBlob(portfolio.imageName);
+          await deleteFromLocal(portfolio.imageName);
         } catch (err) {
           console.warn('Could not delete old image:', err);
         }
@@ -174,7 +177,7 @@ router.delete('/:id', verifyToken, adminOnly, async (req, res) => {
     // Delete associated images
     if (portfolio.imageName) {
       try {
-        await deleteFromBlob(portfolio.imageName);
+        await deleteFromLocal(portfolio.imageName);
       } catch (err) {
         console.warn('Could not delete main image:', err);
       }
@@ -184,7 +187,7 @@ router.delete('/:id', verifyToken, adminOnly, async (req, res) => {
     if (portfolio.galleryUrls && portfolio.galleryUrls.length > 0) {
       for (const img of portfolio.galleryUrls) {
         try {
-          await deleteFromBlob(img.url);
+          await deleteFromLocal(img.url);
         } catch (err) {
           console.warn('Could not delete gallery image:', err);
         }
