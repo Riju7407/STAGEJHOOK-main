@@ -31,7 +31,7 @@ export async function uploadToLocal(fileBuffer, fileName, contentType) {
     await fs.promises.writeFile(filePath, fileBuffer);
     
     // Generate URL - this will be served by Express static middleware
-    const baseUrl = process.env.API_BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
+    const baseUrl = process.env.API_BASE_URL || process.env.RENDER_EXTERNAL_URL || `http://localhost:${process.env.PORT || 5000}`;
     const url = `${baseUrl}/uploads/${uniqueName}`;
     
     console.log(`✅ File uploaded successfully: ${uniqueName}`);
@@ -79,7 +79,7 @@ export function getFileUrl(pathname) {
   if (pathname.startsWith('http')) {
     return pathname;
   }
-  const baseUrl = process.env.API_BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
+  const baseUrl = process.env.API_BASE_URL || process.env.RENDER_EXTERNAL_URL || `http://localhost:${process.env.PORT || 5000}`;
   return `${baseUrl}/uploads/${pathname}`;
 }
 
