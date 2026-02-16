@@ -2,6 +2,7 @@ import express from 'express';
 import Exhibition from '../models/Exhibition.js';
 import { verifyToken, adminOnly } from '../middleware/auth.js';
 import { deleteFromLocal } from '../services/blobStorage.js';
+import { transformExhibitionUrls } from '../services/urlTransform.js';
 
 const router = express.Router();
 
@@ -73,10 +74,13 @@ router.get('/', async (req, res) => {
       .populate('createdBy', 'name email')
       .sort({ startDate: 1 });
 
+    // Transform URLs to fix localhost references
+    const transformedExhibitions = exhibitions.map(e => transformExhibitionUrls(e));
+
     return res.status(200).json({
       success: true,
-      data: exhibitions,
-      count: exhibitions.length
+      data: transformedExhibitions,
+      count: transformedExhibitions.length
     });
   } catch (error) {
     console.error('Get exhibitions error:', error);
@@ -101,9 +105,12 @@ router.get('/:id', async (req, res) => {
       });
     }
 
+    // Transform URLs to fix localhost references
+    const transformedExhibition = transformExhibitionUrls(exhibition);
+
     return res.status(200).json({
       success: true,
-      data: exhibition
+      data: transformedExhibition
     });
   } catch (error) {
     console.error('Get exhibition error:', error);

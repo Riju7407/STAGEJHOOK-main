@@ -2,6 +2,7 @@ import express from 'express';
 import Portfolio from '../models/Portfolio.js';
 import { verifyToken, adminOnly } from '../middleware/auth.js';
 import { deleteFromLocal } from '../services/blobStorage.js';
+import { transformPortfolioUrls } from '../services/urlTransform.js';
 
 const router = express.Router();
 
@@ -65,10 +66,13 @@ router.get('/', async (req, res) => {
       .populate('createdBy', 'name email')
       .sort({ createdAt: -1 });
 
+    // Transform URLs to fix localhost references
+    const transformedPortfolios = portfolios.map(p => transformPortfolioUrls(p));
+
     return res.status(200).json({
       success: true,
-      data: portfolios,
-      count: portfolios.length
+      data: transformedPortfolios,
+      count: transformedPortfolios.length
     });
   } catch (error) {
     console.error('Get portfolios error:', error);
@@ -93,9 +97,12 @@ router.get('/:id', async (req, res) => {
       });
     }
 
+    // Transform URLs to fix localhost references
+    const transformedPortfolio = transformPortfolioUrls(portfolio);
+
     return res.status(200).json({
       success: true,
-      data: portfolio
+      data: transformedPortfolio
     });
   } catch (error) {
     console.error('Get portfolio error:', error);
