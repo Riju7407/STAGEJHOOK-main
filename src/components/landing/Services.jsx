@@ -1,27 +1,27 @@
 const services = [
   {
     title: "Custom Stall Design",
-    img: "/services/custom-stall-design.jpg",
+    img: "/services/custom-exhibition.jpg",
   },
   {
     title: "Fabrication & Branding",
-    img: "/services/fabrication-branding.jpg",
+    img: "/services/custom-booth.jpg",
   },
   {
     title: "Pan-India Execution",
-    img: "/services/pan-india-execution.jpg",
+    img: "/services/custom-built-stands.jpg",
   },
   {
     title: "AV & Technology",
-    img: "/services/av-technology.jpg",
+    img: "/services/expert-graphic.jpg",
   },
   {
     title: "Event Manpower",
-    img: "/services/event-manpower.jpg",
+    img: "/services/event-services.jpg",
   },
   {
     title: "Corporate Events",
-    img: "/services/corporate-events.jpg",
+    img: "/services/digital-marketing.jpg",
   },
 ];
 
@@ -44,6 +44,9 @@ const Services = () => {
                   src={item.img}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  onError={(e) => {
+                    e.target.src = 'https://placehold.co/400x280?text=' + encodeURIComponent(item.title);
+                  }}
                 />
               </div>
 
