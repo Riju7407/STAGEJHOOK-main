@@ -1,19 +1,27 @@
 const services = [
   {
-    title: "Custom Exhibition Design",
-    img: "/services/custom-exhibition.jpg",
+    title: "Custom Stall Design",
+    img: "/services/custom-stall-design.jpg",
   },
   {
-    title: "Custom Built Stands",
-    img: "/services/custom-built-stands.jpg",
+    title: "Fabrication & Branding",
+    img: "/services/fabrication-branding.jpg",
   },
   {
-    title: "Event Services",
-    img: "/services/event-services.jpg",
+    title: "Pan-India Execution",
+    img: "/services/pan-india-execution.jpg",
   },
   {
-    title: "Custom Booth",
-    img: "/services/custom-booth.jpg",
+    title: "AV & Technology",
+    img: "/services/av-technology.jpg",
+  },
+  {
+    title: "Event Manpower",
+    img: "/services/event-manpower.jpg",
+  },
+  {
+    title: "Corporate Events",
+    img: "/services/corporate-events.jpg",
   },
 ];
 
@@ -23,7 +31,7 @@ const Services = () => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         
         {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {services.map((item, index) => (
             <div 
               key={index} 
