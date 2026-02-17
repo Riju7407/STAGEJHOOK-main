@@ -16,10 +16,6 @@ const AboutHero = () => {
 
       {/* About Us Text - Top Left */}
       <div className="absolute top-4 sm:top-5 left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24">
-        <h1 className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold">
-          About Us
-          <div className="h-0.5 sm:h-1 bg-white w-full mt-1 sm:mt-2"></div>
-        </h1>
       </div>
 
     </section>

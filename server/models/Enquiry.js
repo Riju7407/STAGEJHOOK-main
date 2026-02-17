@@ -12,7 +12,7 @@ const enquirySchema = new mongoose.Schema(
       required: true,
       lowercase: true,
       trim: true,
-      match: [/^\w+[\w-\.]*@([\w-]+\.)+[\w-]{2,4}$/, 'Please provide a valid email']
+      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please provide a valid email']
     },
     phone: {
       type: String,
@@ -34,7 +34,7 @@ const enquirySchema = new mongoose.Schema(
     },
     enquiryType: {
       type: String,
-      enum: ['exhibition_stall', 'sponsorship', 'general_inquiry', 'bulk_order', 'other'],
+      enum: ['exhibition_stall', 'sponsorship', 'general_inquiry', 'contact_inquiry', 'bulk_order', 'other'],
       default: 'general_inquiry'
     },
     exhibitionId: {
@@ -43,7 +43,7 @@ const enquirySchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['new', 'in_progress', 'resolved', 'closed'],
+      enum: ['new', 'contacted', 'confirmed', 'in_progress', 'resolved', 'closed'],
       default: 'new'
     },
     priority: {

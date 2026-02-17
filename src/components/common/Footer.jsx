@@ -1,6 +1,75 @@
 import { FaWhatsapp, FaInstagram, FaFacebookF } from "react-icons/fa";
+import { useState } from "react";
 
 const Footer = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    email: "",
+    query: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.phone || !formData.email || !formData.query) {
+      setMessage("Please fill in all required fields");
+      setTimeout(() => setMessage(""), 3000);
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/enquiry`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          subject: "Footer Query",
+          message: formData.query,
+          enquiryType: "general_inquiry",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit query");
+      }
+
+      setMessage("✓ Query submitted successfully!");
+      setFormData({
+        name: "",
+        company: "",
+        phone: "",
+        email: "",
+        query: "",
+      });
+
+      setTimeout(() => setMessage(""), 3000);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("✗ Failed to submit query. Please try again.");
+      setTimeout(() => setMessage(""), 3000);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const services = [
     { name: "Custom Stall Design", href: "/services#custom-stall-design" },
     { name: "Fabrication & Branding", href: "/services#fabrication-branding" },
@@ -48,36 +117,65 @@ const Footer = () => {
           <div>
             <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Submit A Query</h3>
 
-            <form className="space-y-2.5 sm:space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3">
               <input
                 type="text"
-                placeholder="Name"
+                name="name"
+                placeholder="Name *"
+                value={formData.name}
+                onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base rounded border-2 border-white bg-transparent text-white placeholder-white focus:outline-none"
               />
 
               <input
                 type="text"
+                name="company"
                 placeholder="Company"
+                value={formData.company}
+                onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base rounded border-2 border-white bg-transparent text-white placeholder-white focus:outline-none"
               />
 
               <input
                 type="tel"
-                placeholder="Mobile"
+                name="phone"
+                placeholder="Mobile *"
+                value={formData.phone}
+                onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base rounded border-2 border-white bg-transparent text-white placeholder-white focus:outline-none"
               />
 
               <input
                 type="email"
-                placeholder="Email"
+                name="email"
+                placeholder="Email *"
+                value={formData.email}
+                onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base rounded border-2 border-white bg-transparent text-white placeholder-white focus:outline-none"
               />
 
               <input
                 type="text"
-                placeholder="Query"
+                name="query"
+                placeholder="Query *"
+                value={formData.query}
+                onChange={handleInputChange}
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base rounded border-2 border-white bg-transparent text-white placeholder-white focus:outline-none"
               />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base font-semibold bg-white text-[#ee1d23] rounded hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Submitting..." : "Submit Query"}
+              </button>
+
+              {message && (
+                <p className={`text-xs sm:text-sm text-center ${message.includes("✓") ? "text-green-300" : "text-red-300"}`}>
+                  {message}
+                </p>
+              )}
             </form>
           </div>
 

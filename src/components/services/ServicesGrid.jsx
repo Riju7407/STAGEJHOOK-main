@@ -37,17 +37,6 @@ const ServicesGrid = () => {
               <p className="text-gray-600 leading-relaxed mb-6 text-center">
                 {service.description}
               </p>
-
-              {/* Link */}
-              <a
-                href={`#${service.id}`}
-                className="text-[#c41e3a] font-semibold flex items-center justify-center gap-2 group-hover:gap-4 transition-all duration-300"
-              >
-                Learn More
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
             </div>
           ))}
         </div>

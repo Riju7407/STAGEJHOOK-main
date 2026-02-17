@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 const services = [
   {
     title: "Custom Stall Design",
@@ -26,6 +28,7 @@ const services = [
 ];
 
 const Services = () => {
+  const navigate = useNavigate();
   return (
     <section className="bg-white py-12 sm:py-16">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
@@ -60,7 +63,10 @@ const Services = () => {
 
         {/* View All Services Button */}
         <div className="flex justify-center">
-          <button className="flex items-center gap-2 text-sm sm:text-base text-gray-800 font-semibold hover:text-[#E31E24] transition-colors duration-300 group">
+          <button 
+            onClick={() => navigate('/services')}
+            className="flex items-center gap-2 text-sm sm:text-base text-gray-800 font-semibold hover:text-[#E31E24] transition-colors duration-300 group"
+          >
             View All Services
             <svg 
               className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" 

@@ -1,6 +1,9 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import ExhibitionRegistrationForm from './ExhibitionRegistrationForm';
 
 const ExhibitionModal = ({ exhibition, onClose }) => {
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  
   // Close on ESC key
   const handleEsc = useCallback((e) => {
     if (e.key === 'Escape') {
@@ -35,14 +38,15 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-      onClick={onClose}
-    >
+    <>
       <div
-        className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+        onClick={onClose}
       >
+        <div
+          className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -163,7 +167,7 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
                   <div className="p-4 border border-gray-200 rounded-lg bg-white">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Small Stall</h3>
                     <p className="text-2xl font-bold text-[#c41e3a]">
-                      ${exhibition.pricing.small}
+                      ₹{exhibition.pricing.small}
                     </p>
                   </div>
                 )}
@@ -171,7 +175,7 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
                   <div className="p-4 border border-gray-200 rounded-lg bg-white">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Medium Stall</h3>
                     <p className="text-2xl font-bold text-[#c41e3a]">
-                      ${exhibition.pricing.medium}
+                      ₹{exhibition.pricing.medium}
                     </p>
                   </div>
                 )}
@@ -179,7 +183,7 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
                   <div className="p-4 border border-gray-200 rounded-lg bg-white">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Large Stall</h3>
                     <p className="text-2xl font-bold text-[#c41e3a]">
-                      ${exhibition.pricing.large}
+                      ₹{exhibition.pricing.large}
                     </p>
                   </div>
                 )}
@@ -206,13 +210,26 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
 
           {/* Registration CTA */}
           <div className="mt-8">
-            <button className="w-full bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+            <button 
+              onClick={() => setShowRegistrationForm(true)}
+              className="w-full bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
+            >
               Register for Exhibition
             </button>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+
+      {/* Registration Form Modal */}
+      {showRegistrationForm && (
+        <ExhibitionRegistrationForm 
+          exhibition={exhibition}
+          onClose={() => setShowRegistrationForm(false)}
+          onSuccess={() => setShowRegistrationForm(false)}
+        />
+      )}
+    </>
   );
 };
 

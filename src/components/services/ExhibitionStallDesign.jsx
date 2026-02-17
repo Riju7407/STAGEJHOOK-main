@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ExhibitionStallDesign = () => {
+  const navigate = useNavigate();
   const features = [
     'Custom Booth Design',
     '3D Visualization',
@@ -11,7 +13,7 @@ const ExhibitionStallDesign = () => {
   ];
 
   return (
-    <section id="exhibition-stall-design" className="py-20 px-6 bg-gray-50">
+    <section id="custom-stall-design" className="py-20 px-6 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
@@ -40,7 +42,10 @@ const ExhibitionStallDesign = () => {
             </ul>
 
             {/* CTA Button */}
-            <button className="bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <button 
+              onClick={() => navigate('/contact')}
+              className="bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
               Get a Free Quote
             </button>
           </div>
