@@ -2,12 +2,12 @@ import { FaWhatsapp, FaInstagram, FaFacebookF } from "react-icons/fa";
 
 const Footer = () => {
   const services = [
-    "Services 1",
-    "Services 2",
-    "Services 3",
-    "Services 4",
-    "Services 5",
-    "Services 6",
+    { name: "Custom Stall Design", href: "/services#custom-stall-design" },
+    { name: "Fabrication & Branding", href: "/services#fabrication-branding" },
+    { name: "Pan-India Execution", href: "/services#pan-india-execution" },
+    { name: "AV & Technology", href: "/services#av-technology" },
+    { name: "Event Manpower", href: "/services#event-manpower" },
+    { name: "Corporate Events", href: "/services#corporate-events" },
   ];
 
   const locations = [
@@ -87,8 +87,8 @@ const Footer = () => {
             <ul className="space-y-2 sm:space-y-2.5">
               {services.map((service, index) => (
                 <li key={index}>
-                  <a href="#" className="hover:underline text-xs sm:text-sm">
-                    {service}
+                  <a href={service.href} className="hover:underline text-xs sm:text-sm">
+                    {service.name}
                   </a>
                 </li>
               ))}
