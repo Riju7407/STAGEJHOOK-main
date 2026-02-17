@@ -54,7 +54,7 @@ const PortfolioModal = ({ item, onClose }) => {
             alt={item.title}
             className="w-full h-full object-cover"
             onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/800x400?text=Portfolio';
+              e.target.src = 'https://placehold.co/800x400?text=Portfolio';
             }}
           />
         </div>
