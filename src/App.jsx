@@ -6,6 +6,7 @@ import Footer from "./components/common/Footer";
 import Portfolio from "./pages/Portfolio";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Services from "./pages/Services";
 import ExhibitionCalendar from "./pages/ExhibitionCalendar";
 import Contact from "./pages/Contact";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -22,6 +23,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/exhibition" element={<ExhibitionCalendar />} />
