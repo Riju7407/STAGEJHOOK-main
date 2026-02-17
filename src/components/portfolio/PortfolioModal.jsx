@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
-const PortfolioModal = ({ item, onClose }) => {
+const PortfolioModal = ({ portfolio, onClose }) => {
   // Close on ESC key
+  const handleEsc = useCallback((e) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  }, [onClose]);
+
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [handleEsc]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
