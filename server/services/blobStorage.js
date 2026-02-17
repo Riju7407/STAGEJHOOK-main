@@ -13,13 +13,22 @@ if (!fs.existsSync(uploadsDir)) {
   console.log('✅ Created uploads directory for local fallback');
 }
 
-// Check if Vercel Blob is configured
-const USE_VERCEL_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN;
+// Check if Vercel Blob is configured (deferred to avoid timing issues with dotenv)
+function isBlobConfigured() {
+  return !!process.env.BLOB_READ_WRITE_TOKEN;
+}
 
-if (USE_VERCEL_BLOB) {
-  console.log('✅ Using Vercel Blob Storage for persistent file storage');
-} else {
-  console.warn('⚠️  Vercel Blob not configured. Falls back to local storage (not recommended for Vercel deployments)');
+// Log configuration status on first upload attempt
+let configLogged = false;
+function logConfigStatus() {
+  if (configLogged) return;
+  configLogged = true;
+  
+  if (isBlobConfigured()) {
+    console.log('✅ Using Vercel Blob Storage for persistent file storage');
+  } else {
+    console.warn('⚠️  Vercel Blob not configured. Falls back to local storage (not recommended for Vercel deployments)');
+  }
 }
 
 /**
@@ -31,12 +40,15 @@ if (USE_VERCEL_BLOB) {
  */
 export async function uploadToLocal(fileBuffer, fileName, contentType) {
   try {
+    // Log configuration on first upload
+    logConfigStatus();
+    
     const timestamp = Date.now();
     const ext = path.extname(fileName);
     const baseName = path.basename(fileName, ext);
     const uniqueName = `${timestamp}-${baseName}${ext}`;
     
-    if (USE_VERCEL_BLOB) {
+    if (isBlobConfigured()) {
       // Upload to Vercel Blob for persistent storage
       try {
         const blob = await put(uniqueName, fileBuffer, {
@@ -85,7 +97,7 @@ export async function uploadToLocal(fileBuffer, fileName, contentType) {
  */
 export async function deleteFromLocal(pathname) {
   try {
-    if (USE_VERCEL_BLOB && pathname.includes('blob.vercelusercontent.com')) {
+    if (isBlobConfigured() && pathname.includes('blob.vercelusercontent.com')) {
       // Delete from Vercel Blob
       try {
         await del(pathname);
