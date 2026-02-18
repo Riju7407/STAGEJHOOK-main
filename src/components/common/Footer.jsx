@@ -80,7 +80,8 @@ const Footer = () => {
   ];
 
   const locations = [
-    "B-32 GF, Sector 2, Near Sector 15 Metro Station - 201301",
+    { type: "head_office", name: "Noida" },
+    { type: "warehouses", cities: "Delhi, Mumbai, Bangalore, Pune, Goa, Kolkata, Gujarat, and Chandigarh" }
   ];
 
   const navLinks = [
@@ -198,9 +199,17 @@ const Footer = () => {
             <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Our Location</h3>
             <ul className="space-y-2">
               {locations.map((location, index) => (
-                <li key={index} className="text-xs leading-relaxed">
-                  <span className="font-semibold">Noida Head Office:</span>{" "}
-                  {location}
+                <li key={index} className="text-sm sm:text-base leading-relaxed">
+                  {location.type === "head_office" && (
+                    <>
+                      <span className="font-bold">Head Office:</span> {location.name}
+                    </>
+                  )}
+                  {location.type === "warehouses" && (
+                    <>
+                      <span className="font-bold">Warehouses:</span> {location.cities}
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
@@ -213,7 +222,7 @@ const Footer = () => {
             <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
             
               <p className="flex flex-wrap items-center gap-2">
-                <span className="font-bold">99999 82358</span>
+                <span className="font-bold">+91 99999 82358</span>
                 <span>|</span>
                 <a
                   href="mailto:info@stagehook.co.in"

@@ -6,6 +6,7 @@ import { adminAuthAPI } from '../services/adminAuthAPI';
 import PortfolioManagement from '../components/admin/PortfolioManagement';
 import ExhibitionManagement from '../components/admin/ExhibitionManagement';
 import ExhibitionRegistrationsManagement from '../components/admin/ExhibitionRegistrationsManagement';
+import StatsManagement from '../components/admin/StatsManagement';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -113,6 +114,16 @@ const AdminDashboard = () => {
               }`}
             >
               📋 Registrations & Enquiries
+            </button>
+            <button
+              onClick={() => setActiveTab('statistics')}
+              className={`px-6 py-4 font-medium border-b-2 transition-colors ${
+                activeTab === 'statistics'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              📊 Statistics
             </button>
           </div>
         </div>
@@ -263,6 +274,12 @@ const AdminDashboard = () => {
         {activeTab === 'registrations' && (
           <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
             <ExhibitionRegistrationsManagement />
+          </div>
+        )}
+
+        {activeTab === 'statistics' && (
+          <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <StatsManagement />
           </div>
         )}
       </main>

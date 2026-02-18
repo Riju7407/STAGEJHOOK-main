@@ -3,27 +3,27 @@ import { useNavigate } from 'react-router-dom';
 const services = [
   {
     title: "Custom Stall Design",
-    img: "/services/custom-exhibition.jpg",
+    img: "/services/Custom-Stall-Design.jpg",
   },
   {
     title: "Fabrication & Branding",
-    img: "/services/custom-booth.jpg",
+    img: "/services/Fabrication-&-Branding.jpg",
   },
   {
     title: "Pan-India Execution",
-    img: "/services/custom-built-stands.jpg",
+    img: "/services/Pan-India-Execution.jpg",
   },
   {
     title: "AV & Technology",
-    img: "/services/expert-graphic.jpg",
+    img: "/services/AV-&-Technology.jpg",
   },
   {
     title: "Event Manpower",
-    img: "/services/event-services.jpg",
+    img: "/services/Event-Manpower.jpg",
   },
   {
     title: "Corporate Events",
-    img: "/services/digital-marketing.jpg",
+    img: "/services/Corporate-Events.jpg",
   },
 ];
 

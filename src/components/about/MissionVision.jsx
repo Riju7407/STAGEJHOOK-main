@@ -16,7 +16,7 @@ const MissionVision = () => {
           </div>
 
           {/* RIGHT: Goals Tree Diagram */}
-          <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2 pr-10">
             <img 
               src="/mission-goals-diagram.png" 
               alt="Mission and Goals Diagram" 

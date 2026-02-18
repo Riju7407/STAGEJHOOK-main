@@ -8,7 +8,7 @@ const ContactInfo = () => {
       title: 'Whatsapp',
       color: 'text-green-500',
       contacts: [
-        { number: '99599 82358', link: 'https://wa.me/919959982358' },
+        { number: '+91 99599 82358', link: 'https://wa.me/919959982358' },
       ]
     },
     {
@@ -16,7 +16,7 @@ const ContactInfo = () => {
       title: 'Phone',
       color: 'text-[#ee1d23]',
       contacts: [
-        { number: '99599 82358', link: 'tel:+919959982358' },
+        { number: '+91 99599 82358', link: 'tel:+919959982358' },
       ]
     },
     {

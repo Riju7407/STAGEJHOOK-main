@@ -7,7 +7,7 @@ import OurPresence from '../components/about/OurPresence';
 
 const About = () => {
   return (
-    <div className="about-page">
+    <div className="about-page w-full overflow-x-hidden">
       <AboutHero />
       <AboutIntro />
       <MissionVision />

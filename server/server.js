@@ -12,6 +12,7 @@ import uploadRoutes from './routes/upload.js';
 import portfolioRoutes from './routes/portfolio.js';
 import exhibitionRoutes from './routes/exhibition.js';
 import enquiryRoutes from './routes/enquiry.js';
+import statsRoutes from './routes/stats.js';
 import Admin from './models/Admin.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -119,6 +120,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/exhibition', exhibitionRoutes);
 app.use('/api/enquiry', enquiryRoutes);
+app.use('/api/stats', statsRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
