@@ -7,3 +7,22 @@ body,
   width: 100%;
   overflow-x: hidden;
 }
+
+/* Custom hero height utilities */
+@layer components {
+  .mobile-hero-sm {
+    @apply h-[50vh] md:h-[60vh];
+  }
+
+  .mobile-hero-md {
+    @apply h-[60vh] md:h-[70vh];
+  }
+
+  .mobile-hero-lg {
+    @apply h-[70vh] md:h-[80vh];
+  }
+
+  .mobile-section-container {
+    @apply max-w-7xl mx-auto px-4;
+  }
+}

@@ -14,8 +14,8 @@ const Clients = () => {
   const duplicatedClients = [...clients, ...clients];
 
   return (
-    <div className="bg-white py-8 sm:py-12 px-4 sm:px-6 rounded-lg shadow-md">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center mb-6 sm:mb-8">
+    <div className="bg-white mobile-section-padding-compact mobile-container rounded-lg shadow-md">
+      <h2 className="mobile-heading-2 text-gray-800 text-center mb-6 sm:mb-8">
         Our Clientele
       </h2>
 

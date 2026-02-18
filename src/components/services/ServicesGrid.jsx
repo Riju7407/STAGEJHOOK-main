@@ -3,9 +3,9 @@ import { servicesData } from '../../assets/data/servicesData';
 
 const ServicesGrid = () => {
   return (
-    <section className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section className="mobile-section-padding bg-white">
+      <div className="mobile-section-container">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mobile-grid-gap">
           {servicesData.map((service, index) => (
             <div
               key={index}
@@ -29,12 +29,12 @@ const ServicesGrid = () => {
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <h3 className="mobile-heading-3 text-gray-800 mb-4 text-center">
                 {service.title}
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 leading-relaxed mb-6 text-center">
+              <p className="mobile-body-text text-gray-600 leading-relaxed mb-6 text-center">
                 {service.description}
               </p>
             </div>
