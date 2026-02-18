@@ -9,7 +9,7 @@ const ServicesGrid = () => {
           {servicesData.map((service, index) => (
             <div
               key={index}
-              className="group bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#c41e3a] hover:-translate-y-3"
+              className="group bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#c41e3a] hover:-translate-y-3 m-[7px]"
             >
               {/* Icon */}
               <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-[#c41e3a] to-[#8b0000] rounded-full flex items-center justify-center">

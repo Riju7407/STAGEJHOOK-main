@@ -47,48 +47,48 @@ const Stats = () => {
         />
         
         {/* STATS OVERLAY */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl mx-auto px-4 md:px-8">
+        <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center p-2 sm:p-8">
+          <div className="grid grid-cols-4 gap-1 sm:gap-6 w-full max-w-6xl">
             {/* Covered Area */}
             <div className="text-center">
-              <FaBuilding className="text-4xl md:text-5xl text-white mx-auto mb-3" />
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <FaBuilding className="text-sm sm:text-4xl lg:text-5xl text-white mx-auto mb-0.5 sm:mb-3" />
+              <div className="text-[10px] sm:text-3xl lg:text-4xl font-bold text-white mb-0 sm:mb-2 break-words">
                 {stats.coveredArea?.value || 46000}+
               </div>
-              <p className="text-sm md:text-base font-semibold text-white">
+              <p className="text-[7px] sm:text-sm lg:text-base font-semibold text-white leading-tight">
                 {stats.coveredArea?.label || 'sqm Covered Area'}
               </p>
             </div>
 
             {/* Clients */}
             <div className="text-center">
-              <FaUsers className="text-4xl md:text-5xl text-white mx-auto mb-3" />
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <FaUsers className="text-sm sm:text-4xl lg:text-5xl text-white mx-auto mb-0.5 sm:mb-3" />
+              <div className="text-[10px] sm:text-3xl lg:text-4xl font-bold text-white mb-0 sm:mb-2 break-words">
                 {stats.clients?.value || 650}+
               </div>
-              <p className="text-sm md:text-base font-semibold text-white">
+              <p className="text-[7px] sm:text-sm lg:text-base font-semibold text-white leading-tight">
                 {stats.clients?.label || 'Clients'}
               </p>
             </div>
 
             {/* Exhibition Stands */}
             <div className="text-center">
-              <FaStore className="text-4xl md:text-5xl text-white mx-auto mb-3" />
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <FaStore className="text-sm sm:text-4xl lg:text-5xl text-white mx-auto mb-0.5 sm:mb-3" />
+              <div className="text-[10px] sm:text-3xl lg:text-4xl font-bold text-white mb-0 sm:mb-2 break-words">
                 {stats.exhibitionStands?.value || 2700}+
               </div>
-              <p className="text-sm md:text-base font-semibold text-white">
+              <p className="text-[7px] sm:text-sm lg:text-base font-semibold text-white leading-tight">
                 {stats.exhibitionStands?.label || 'Exhibition Stands'}
               </p>
             </div>
 
             {/* Avenues */}
             <div className="text-center">
-              <FaRoad className="text-4xl md:text-5xl text-white mx-auto mb-3" />
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <FaRoad className="text-sm sm:text-4xl lg:text-5xl text-white mx-auto mb-0.5 sm:mb-3" />
+              <div className="text-[10px] sm:text-3xl lg:text-4xl font-bold text-white mb-0 sm:mb-2 break-words">
                 {stats.avenues?.value || 95}+
               </div>
-              <p className="text-sm md:text-base font-semibold text-white">
+              <p className="text-[7px] sm:text-sm lg:text-base font-semibold text-white leading-tight">
                 {stats.avenues?.label || 'Avenues'}
               </p>
             </div>

@@ -15,7 +15,7 @@ const Clients = () => {
 
   return (
     <div className="bg-white mobile-section-padding-compact mobile-container rounded-lg shadow-md">
-      <h2 className="mobile-heading-2 text-gray-800 text-center mb-6 sm:mb-8">
+      <h2 className="mobile-heading-2 text-gray-800 text-center mb-6 sm:mb-8 font-bold">
         Our Clientele
       </h2>
 
