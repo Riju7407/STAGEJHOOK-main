@@ -16,7 +16,7 @@ const Navbar = () => {
   }, [location.pathname]);
 
   return (
-    <nav className="bg-white relative z-10 sm:border-b sm:border-gray-200">
+    <nav className="bg-white relative z-40 sm:border-b sm:border-gray-200">
       <div className="max-w-[1300px] mx-auto px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-between gap-2">
         
         {/* LOGO */}
@@ -79,7 +79,7 @@ const Navbar = () => {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 sm:hidden z-50 shadow-lg w-full">
+          <div className="fixed inset-0 top-14 left-0 right-0 bg-white border-b border-gray-200 sm:hidden z-40 shadow-lg w-full">
             <ul className="flex flex-col gap-1 py-4 px-4 text-xs font-medium text-black">
               <li className="w-full"><Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">Home</Link></li>
               <li className="w-full"><Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">About</Link></li>
