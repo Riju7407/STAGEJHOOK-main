@@ -33,23 +33,26 @@ const ContactInfo = () => {
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {contactMethods.map((method, index) => (
-            <div key={index} className="bg-white p-8 rounded-lg shadow-md text-center">
-              <method.icon className={`text-5xl ${method.color} mx-auto mb-4`} />
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">{method.title}</h3>
-              <div className="space-y-3">
-                {method.contacts.map((contact, idx) => (
-                  <a
-                    key={idx}
-                    href={contact.link}
-                    className="block text-[#ee1d23] hover:text-[#c41519] font-semibold transition-colors"
-                  >
-                    {contact.number}
-                  </a>
-                ))}
+          {contactMethods.map((method, index) => {
+            const IconComponent = method.icon;
+            return (
+              <div key={index} className="bg-white p-8 rounded-lg shadow-md text-center">
+                <IconComponent className={`text-5xl ${method.color} mx-auto mb-4`} />
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">{method.title}</h3>
+                <div className="space-y-3">
+                  {method.contacts.map((contact, idx) => (
+                    <a
+                      key={idx}
+                      href={contact.link}
+                      className="block text-[#ee1d23] hover:text-[#c41519] font-semibold transition-colors"
+                    >
+                      {contact.number}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
