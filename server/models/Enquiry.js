@@ -34,12 +34,16 @@ const enquirySchema = new mongoose.Schema(
     },
     enquiryType: {
       type: String,
-      enum: ['exhibition_stall', 'sponsorship', 'general_inquiry', 'contact_inquiry', 'bulk_order', 'other'],
+      enum: ['exhibition_stall', 'portfolio_project', 'sponsorship', 'general_inquiry', 'contact_inquiry', 'bulk_order', 'other'],
       default: 'general_inquiry'
     },
     exhibitionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Exhibition'
+    },
+    portfolioId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Portfolio'
     },
     status: {
       type: String,

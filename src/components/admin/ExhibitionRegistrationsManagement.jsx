@@ -141,6 +141,7 @@ export default function ExhibitionRegistrationsManagement() {
   const getEnquiryTypeLabel = (type) => {
     const labels = {
       'exhibition_stall': 'Exhibition Registration',
+      'portfolio_project': 'Portfolio Project Request',
       'contact_inquiry': 'Contact Query',
       'sponsorship': 'Sponsorship Inquiry',
       'bulk_order': 'Bulk Order',
@@ -153,6 +154,7 @@ export default function ExhibitionRegistrationsManagement() {
   const getEnquiryTypeColor = (type) => {
     const colors = {
       'exhibition_stall': 'bg-blue-100 text-blue-800',
+      'portfolio_project': 'bg-pink-100 text-pink-800',
       'contact_inquiry': 'bg-purple-100 text-purple-800',
       'sponsorship': 'bg-green-100 text-green-800',
       'bulk_order': 'bg-orange-100 text-orange-800',
@@ -198,6 +200,7 @@ export default function ExhibitionRegistrationsManagement() {
         >
           <option value="all">All Types</option>
           <option value="exhibition_stall">Exhibition Registration</option>
+          <option value="portfolio_project">Portfolio Project Request</option>
           <option value="contact_inquiry">Contact Query</option>
           <option value="sponsorship">Sponsorship</option>
           <option value="general_inquiry">General Inquiry</option>
@@ -334,6 +337,34 @@ export default function ExhibitionRegistrationsManagement() {
                 <p className="text-gray-800">{new Date(selectedRegistration.createdAt).toLocaleString()}</p>
               </div>
             </div>
+
+            {/* Enquiry Type Info */}
+            <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+              <label className="font-semibold text-gray-700 block mb-2">Enquiry Type:</label>
+              <span className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${getEnquiryTypeColor(selectedRegistration.enquiryType)}`}>
+                {getEnquiryTypeLabel(selectedRegistration.enquiryType)}
+              </span>
+            </div>
+
+            {/* Exhibition Info - Only show if exhibition_stall */}
+            {selectedRegistration.enquiryType === 'exhibition_stall' && selectedRegistration.exhibitionId && (
+              <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <label className="font-semibold text-gray-700">Exhibition:</label>
+                <p className="text-gray-800">
+                  {selectedRegistration.exhibitionId?.title || 'Exhibition'}
+                </p>
+              </div>
+            )}
+
+            {/* Portfolio Info - Only show if portfolio_project */}
+            {selectedRegistration.enquiryType === 'portfolio_project' && selectedRegistration.portfolioId && (
+              <div className="mb-4 p-4 bg-pink-50 rounded-lg border border-pink-200">
+                <label className="font-semibold text-gray-700">Portfolio Project:</label>
+                <p className="text-gray-800">
+                  {selectedRegistration.portfolioId?.title || 'Portfolio Project'}
+                </p>
+              </div>
+            )}
 
             <div>
               <label className="font-semibold text-gray-700">Subject:</label>

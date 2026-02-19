@@ -1,6 +1,8 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import PortfolioProjectForm from './PortfolioProjectForm';
 
-const PortfolioModal = ({ portfolio, onClose }) => {
+const PortfolioModal = ({ item, onClose }) => {
+  const [showProjectForm, setShowProjectForm] = useState(false);
   // Close on ESC key
   const handleEsc = useCallback((e) => {
     if (e.key === 'Escape') {
@@ -119,12 +121,24 @@ const PortfolioModal = ({ portfolio, onClose }) => {
 
           {/* CTA Button */}
           <div className="mt-8">
-            <button className="w-full bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+            <button 
+              onClick={() => setShowProjectForm(true)}
+              className="w-full bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
+            >
               Request Similar Project
             </button>
           </div>
         </div>
       </div>
+
+      {/* Project Request Form Modal */}
+      {showProjectForm && (
+        <PortfolioProjectForm 
+          portfolio={item}
+          onClose={() => setShowProjectForm(false)}
+          onSuccess={() => setShowProjectForm(false)}
+        />
+      )}
     </div>
   );
 };

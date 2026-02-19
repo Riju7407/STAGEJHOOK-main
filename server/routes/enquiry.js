@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import Enquiry from '../models/Enquiry.js';
 
 const router = express.Router();
@@ -8,7 +9,7 @@ const router = express.Router();
  */
 router.post('/', async (req, res) => {
   try {
-    const { name, email, phone, company, subject, message, enquiryType, exhibitionId } = req.body;
+    const { name, email, phone, company, subject, message, enquiryType, exhibitionId, portfolioId } = req.body;
 
     // Validate required fields
     if (!name || !email || !subject || !message) {
@@ -18,18 +19,46 @@ router.post('/', async (req, res) => {
       });
     }
 
-    const enquiry = new Enquiry({
-      name,
-      email,
-      phone: phone || '',
-      company: company || '',
-      subject,
-      message,
+    // Prepare enquiry data
+    const enquiryData = {
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      phone: phone ? phone.trim() : '',
+      company: company ? company.trim() : '',
+      subject: subject.trim(),
+      message: message.trim(),
       enquiryType: enquiryType || 'general_inquiry',
-      exhibitionId: exhibitionId || null,
       status: 'new'
-    });
+    };
 
+    // Validate enquiryType
+    const validTypes = ['exhibition_stall', 'portfolio_project', 'sponsorship', 'general_inquiry', 'contact_inquiry', 'bulk_order', 'other'];
+    if (!validTypes.includes(enquiryData.enquiryType)) {
+      console.warn(`⚠️ Invalid enquiryType: "${enquiryData.enquiryType}". Using default "general_inquiry"`);
+      enquiryData.enquiryType = 'general_inquiry';
+    }
+
+    // Handle exhibitionId - validate if provided
+    if (exhibitionId && typeof exhibitionId === 'string' && exhibitionId.trim() !== '') {
+      if (mongoose.Types.ObjectId.isValid(exhibitionId)) {
+        enquiryData.exhibitionId = exhibitionId;
+      } else {
+        console.warn('Invalid exhibitionId format:', exhibitionId);
+      }
+    }
+
+    // Handle portfolioId - validate if provided
+    if (portfolioId && typeof portfolioId === 'string' && portfolioId.trim() !== '') {
+      if (mongoose.Types.ObjectId.isValid(portfolioId)) {
+        enquiryData.portfolioId = portfolioId;
+      } else {
+        console.warn('Invalid portfolioId format:', portfolioId);
+      }
+    }
+
+    console.log('📝 Creating enquiry with data:', enquiryData);
+
+    const enquiry = new Enquiry(enquiryData);
     const savedEnquiry = await enquiry.save();
 
     console.log(`✅ Enquiry created: ${savedEnquiry._id}`);
@@ -41,6 +70,7 @@ router.post('/', async (req, res) => {
     });
   } catch (error) {
     console.error('❌ Create enquiry error:', error.message);
+    console.error('Error details:', error);
     console.error('Stack:', error.stack);
     return res.status(500).json({
       success: false,
@@ -57,6 +87,7 @@ router.get('/', async (req, res) => {
   try {
     const enquiries = await Enquiry.find()
       .populate('exhibitionId', 'title')
+      .populate('portfolioId', 'title')
       .sort({ createdAt: -1 });
 
     return res.status(200).json({
@@ -80,7 +111,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const enquiry = await Enquiry.findById(req.params.id)
-      .populate('exhibitionId', 'title');
+      .populate('exhibitionId', 'title')
+      .populate('portfolioId', 'title');
 
     if (!enquiry) {
       return res.status(404).json({
