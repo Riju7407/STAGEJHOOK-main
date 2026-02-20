@@ -53,11 +53,11 @@ const PortfolioModal = ({ item, onClose }) => {
         </button>
 
         {/* Image */}
-        <div className="w-full h-[400px] overflow-hidden rounded-t-2xl">
+        <div className="w-full bg-gray-100 rounded-t-2xl flex items-center justify-center">
           <img
             src={item.imageUrl || item.image}
             alt={item.title}
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain max-h-[60vh]"
             onError={(e) => {
               e.target.src = 'https://placehold.co/800x400?text=Portfolio';
             }}

@@ -18,7 +18,7 @@ const ContactHero = () => {
 
       {/* Hero Text */}
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Contact Us</h1>
+        <h1 className="text-5xl md:text-6xl font-black text-white mb-6">Contact Us</h1>
         <div className="w-24 h-1 bg-white mx-auto"></div>
       </div>
 

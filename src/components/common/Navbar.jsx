@@ -32,13 +32,13 @@ const Navbar = () => {
         <ul className="flex items-center gap-1 sm:gap-2 lg:gap-3 xl:gap-4 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] font-medium text-black flex-1 justify-end sm:justify-center px-1 sm:px-2">
           <li className="hidden sm:block z-10"><Link to="/" className="hover:text-[#E31E24] transition-colors whitespace-nowrap">Home</Link></li>
           <li className="hidden md:block border-l border-gray-400 h-4"></li>
-          <li className="hidden sm:block z-10"><Link to="/about" className="hover:text-[#E31E24] transition-colors whitespace-nowrap">About</Link></li>
+          <li className="hidden sm:block z-10"><Link to="/about" className="hover:text-[#E31E24] transition-colors whitespace-nowrap">About Us</Link></li>
           <li className="hidden md:block border-l border-gray-400 h-4"></li>
           <li className="hidden sm:block z-10"><Link to="/services" className="hover:text-[#E31E24] transition-colors cursor-pointer whitespace-nowrap">Services</Link></li>
           <li className="hidden md:block border-l border-gray-400 h-4"></li>
           <li className="hidden sm:block z-10"><Link to="/portfolio" className="hover:text-[#E31E24] transition-colors cursor-pointer whitespace-nowrap">Portfolio</Link></li>
           <li className="hidden lg:block border-l border-gray-400 h-4"></li>
-          <li className="hidden lg:block z-10"><Link to="/exhibition" className="hover:text-[#E31E24] transition-colors cursor-pointer whitespace-nowrap text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px]">Exhibition</Link></li>
+          <li className="hidden lg:block z-10"><Link to="/exhibition" className="hover:text-[#E31E24] transition-colors cursor-pointer whitespace-nowrap">Exhibition</Link></li>
           <li className="hidden lg:block border-l border-gray-400 h-4"></li>
           <li className="hidden sm:block z-10"><Link to="/contact" className="hover:text-[#E31E24] transition-colors cursor-pointer whitespace-nowrap">Contact</Link></li>
           <li className="hidden lg:block border-l border-gray-400 h-4"></li>
@@ -82,7 +82,7 @@ const Navbar = () => {
           <div className="fixed inset-0 top-14 left-0 right-0 bg-white border-b border-gray-200 sm:hidden z-40 shadow-lg w-full">
             <ul className="flex flex-col gap-1 py-4 px-4 text-xs font-medium text-black">
               <li className="w-full"><Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">Home</Link></li>
-              <li className="w-full"><Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">About</Link></li>
+              <li className="w-full"><Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">About Us</Link></li>
               <li className="w-full"><Link to="/services" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">Services</Link></li>
               <li className="w-full"><Link to="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">Portfolio</Link></li>
               <li className="w-full"><Link to="/exhibition" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#E31E24] hover:bg-gray-100 transition-colors block py-3 px-3 rounded w-full text-sm">Exhibition</Link></li>
