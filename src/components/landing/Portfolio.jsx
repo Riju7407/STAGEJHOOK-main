@@ -5,31 +5,31 @@ const Portfolio = () => {
   const portfolioItems = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
+      image: "/p2.jpg",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=600&h=400&fit=crop",
+      image: "/p3.jpg",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&h=400&fit=crop",
+      image: "/p4.jpg",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 4,
-      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop",
+      image: "/p5.jpg",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
     {
       id: 5,
-      image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=600&h=400&fit=crop",
+      image: "/p6.jpg",
       title: "60sqm",
       subtitle: "AAHAR 2025 (Delhi)",
     },
@@ -40,7 +40,7 @@ const Portfolio = () => {
       <div className="mobile-section-container">
         {/* PORTFOLIO HEADER */}
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="mobile-heading-1 text-gray-800 mb-3 sm:mb-4 font-bold">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-800 mb-3 sm:mb-4 font-bold">
             Portfolio
           </h2>
           <p className="text-sm sm:text-base text-gray-600 max-w-4xl mx-auto leading-relaxed px-2">
