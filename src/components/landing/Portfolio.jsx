@@ -6,32 +6,32 @@ const Portfolio = () => {
     {
       id: 1,
       image: "/p2.jpg",
-      title: "60sqm",
-      subtitle: "AAHAR 2025 (Delhi)",
+      title: "DELTA",
+      subtitle: "DELTA 300 Sqmtr Elecrama 2023 Gr. Noida",
     },
     {
       id: 2,
       image: "/p3.jpg",
-      title: "60sqm",
-      subtitle: "AAHAR 2025 (Delhi)",
+      title: "CARACAL",
+      subtitle: "CARACAL 130 Sqmtr Defexpo 2020",
     },
     {
       id: 3,
       image: "/p4.jpg",
-      title: "60sqm",
-      subtitle: "AAHAR 2025 (Delhi)",
+      title: "ITA",
+      subtitle: "ITA 144 Sqmtr Aahar 2024 Delhi",
     },
     {
       id: 4,
       image: "/p5.jpg",
-      title: "60sqm",
-      subtitle: "AAHAR 2025 (Delhi)",
+      title: "MAIRE TECNIMONT",
+      subtitle: "MAIRE TECNIMONT 72 SQM - IEW 2023",
     },
     {
       id: 5,
       image: "/p6.jpg",
-      title: "60sqm",
-      subtitle: "AAHAR 2025 (Delhi)",
+      title: "ADES",
+      subtitle: "ADES 24 SQM - IEW 2024",
     },
   ];
 

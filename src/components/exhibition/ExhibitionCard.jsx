@@ -68,7 +68,7 @@ const ExhibitionCard = ({ exhibition, onReadMore }) => {
           onClick={() => onReadMore && onReadMore(exhibition)}
           className="text-[#ee1d23] font-semibold text-sm hover:underline flex items-center group transition-all duration-300 cursor-pointer"
         >
-          read more
+          Read More
           <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>

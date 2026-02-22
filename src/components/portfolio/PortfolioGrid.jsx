@@ -88,7 +88,7 @@ const PortfolioGrid = () => {
                     {item.title}
                   </h3>
                   <p className="text-white/90 text-sm">
-                    {item.category}
+                    {item.category?.charAt(0).toUpperCase() + item.category?.slice(1).toLowerCase()}
                   </p>
                 </div>
 

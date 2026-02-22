@@ -68,7 +68,7 @@ const PortfolioModal = ({ item, onClose }) => {
         <div className="p-8">
           <div className="flex items-center gap-3 mb-4">
             <span className="px-4 py-1 bg-[#c41e3a]/10 text-[#c41e3a] rounded-full text-sm font-semibold">
-              {item.category}
+              {item.category?.charAt(0).toUpperCase() + item.category?.slice(1).toLowerCase()}
             </span>
             {item.location && (
               <span className="flex items-center gap-1 text-gray-600 text-sm">
