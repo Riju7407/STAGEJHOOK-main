@@ -5,33 +5,33 @@ const Portfolio = () => {
   const portfolioItems = [
     {
       id: 1,
-      image: "/p2.jpg",
-      title: "DELTA",
-      subtitle: "DELTA 300 Sqmtr Elecrama 2023 Gr. Noida",
+      image: "/p2.jpeg",
+      title: "INDUS FOOD",
+      subtitle: "200 Sqm - Greater Noida 2026",
     },
     {
       id: 2,
-      image: "/p3.jpg",
-      title: "CARACAL",
-      subtitle: "CARACAL 130 Sqmtr Defexpo 2020",
+      image: "/p3.jpeg",
+      title: "ACETECH",
+      subtitle: "100 Sqm - Hyderbad 2026",
     },
     {
       id: 3,
-      image: "/p4.jpg",
-      title: "ITA",
-      subtitle: "ITA 144 Sqmtr Aahar 2024 Delhi",
+      image: "/p4.jpeg",
+      title: "ACMA",
+      subtitle: "24 Sqmtr - New Delhi 2026",
     },
     {
       id: 4,
-      image: "/p5.jpg",
-      title: "MAIRE TECNIMONT",
-      subtitle: "MAIRE TECNIMONT 72 SQM - IEW 2023",
+      image: "/p5.jpeg",
+      title: "ANALITIKA",
+      subtitle: "15 Sqm - Russia 2025",
     },
     {
       id: 5,
-      image: "/p6.jpg",
-      title: "ADES",
-      subtitle: "ADES 24 SQM - IEW 2024",
+      image: "/p6.jpeg",
+      title: "PLUMBEX",
+      subtitle: "24 Sqm - Delhi 2025",
     },
   ];
 
