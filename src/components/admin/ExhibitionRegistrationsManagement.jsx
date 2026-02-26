@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaTrash, FaCheck, FaClock, FaSearch } from 'react-icons/fa';
+import { FaTrash, FaCheck, FaClock, FaSearch, FaDownload } from 'react-icons/fa';
 
 export default function ExhibitionRegistrationsManagement() {
   const [registrations, setRegistrations] = useState([]);
@@ -164,9 +164,69 @@ export default function ExhibitionRegistrationsManagement() {
     return colors[type] || 'bg-gray-100 text-gray-800';
   };
 
+  // CSV Download Function
+  const downloadCSV = () => {
+    // Prepare CSV headers
+    const headers = [
+      'Name',
+      'Email',
+      'Phone',
+      'Company',
+      'Enquiry Type',
+      'Status',
+      'Subject',
+      'Message',
+      'Created Date'
+    ];
+
+    // Convert filtered registrations to CSV rows
+    const csvRows = filteredRegistrations.map(reg => [
+      reg.name || '',
+      reg.email || '',
+      reg.phone || '',
+      reg.company || '',
+      getEnquiryTypeLabel(reg.enquiryType),
+      reg.status || '',
+      reg.subject || '',
+      // Escape and clean message field
+      (reg.message || '').replace(/\n/g, ' ').replace(/"/g, '""'),
+      new Date(reg.createdAt).toLocaleDateString()
+    ]);
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(','),
+      ...csvRows.map(row => 
+        row.map(cell => `"${cell}"`).join(',')
+      )
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `registrations_enquiries_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Registrations & Enquiries</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">Registrations & Enquiries</h2>
+        <button
+          onClick={downloadCSV}
+          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+          title="Download filtered data as CSV"
+        >
+          <FaDownload /> Download CSV
+        </button>
+      </div>
 
       {/* Search and Filter */}
       <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
