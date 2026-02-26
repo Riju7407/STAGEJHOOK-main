@@ -26,6 +26,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'https://stagejhook-main.vercel.app',
+  'https://stagehook.co.in',
+  'https://www.stagehook.co.in',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
