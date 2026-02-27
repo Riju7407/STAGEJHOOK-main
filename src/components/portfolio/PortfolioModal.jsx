@@ -85,9 +85,19 @@ const PortfolioModal = ({ item, onClose }) => {
             {item.title}
           </h2>
 
-          <p className="text-gray-700 leading-relaxed mb-6">
-            {item.description}
-          </p>
+          {item.description && (
+            <p className="text-gray-700 leading-relaxed mb-6">
+              {item.description}
+            </p>
+          )}
+
+          {/* Extra Information */}
+          {item.client && (
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <p className="text-sm text-gray-500 mb-1 font-medium">Extra Information</p>
+              <p className="text-gray-800">{item.client}</p>
+            </div>
+          )}
 
           {/* Details */}
           {item.details && (
