@@ -225,7 +225,7 @@ export default function PortfolioManagement() {
                 <input
                   type="text"
                   name="client"
-                  placeholder="Client Name"
+                  placeholder="Extra Information"
                   value={formData.client}
                   onChange={handleInputChange}
                   className="border rounded px-3 py-2 w-full"
