@@ -9,18 +9,17 @@ const router = express.Router();
 // Create Portfolio
 router.post('/', verifyToken, adminOnly, async (req, res) => {
   try {
-    const { title, description, category, imageUrl, imageName, client, location, status, tags, galleryUrls } = req.body;
+    const { title, category, imageUrl, imageName, client, location, status, tags, galleryUrls } = req.body;
 
-    if (!title || !description || !imageUrl) {
+    if (!title || !imageUrl) {
       return res.status(400).json({
         success: false,
-        message: 'Title, description, and imageUrl are required'
+        message: 'Title and imageUrl are required'
       });
     }
 
     const portfolio = new Portfolio({
       title,
-      description,
       category: category || 'exhibition',
       imageUrl,
       imageName,

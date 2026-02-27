@@ -9,7 +9,7 @@ const portfolioSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
+      required: false,
       trim: true
     },
     category: {
