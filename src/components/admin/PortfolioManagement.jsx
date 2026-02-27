@@ -16,7 +16,6 @@ export default function PortfolioManagement() {
 
   const [formData, setFormData] = useState({
     title: '',
-    description: '',
     category: 'exhibition',
     imageUrl: '',
     imageName: '',
@@ -150,7 +149,6 @@ export default function PortfolioManagement() {
   const resetForm = () => {
     setFormData({
       title: '',
-      description: '',
       category: 'exhibition',
       imageUrl: '',
       imageName: '',
@@ -222,16 +220,6 @@ export default function PortfolioManagement() {
                   <option value="other">Other</option>
                 </select>
               </div>
-
-              <textarea
-                name="description"
-                placeholder="Description"
-                value={formData.description}
-                onChange={handleInputChange}
-                required
-                rows="4"
-                className="border rounded px-3 py-2 w-full"
-              />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
