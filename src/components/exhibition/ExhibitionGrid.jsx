@@ -8,6 +8,7 @@ const ExhibitionGrid = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedExhibition, setSelectedExhibition] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
 
   useEffect(() => {
     fetchExhibitions();
@@ -66,11 +67,14 @@ const ExhibitionGrid = () => {
       <section className="py-16 px-6 max-w-7xl mx-auto">
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {exhibitions.map((exhibition) => (
+          {exhibitions.map((exhibition, index) => (
             <ExhibitionCard 
               key={exhibition._id} 
               exhibition={exhibition}
-              onReadMore={setSelectedExhibition}
+              onReadMore={(exhib) => {
+                setSelectedExhibition(exhib);
+                setCurrentIndex(index);
+              }}
             />
           ))}
         </div>
@@ -80,7 +84,13 @@ const ExhibitionGrid = () => {
       {selectedExhibition && (
         <ExhibitionModal
           exhibition={selectedExhibition}
+          currentIndex={currentIndex}
+          exhibitions={exhibitions}
           onClose={() => setSelectedExhibition(null)}
+          onNextExhibition={(nextExhibition, nextIndex) => {
+            setSelectedExhibition(nextExhibition);
+            setCurrentIndex(nextIndex);
+          }}
         />
       )}
     </>

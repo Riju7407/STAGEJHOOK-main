@@ -1,8 +1,46 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import ExhibitionRegistrationForm from './ExhibitionRegistrationForm';
 
-const ExhibitionModal = ({ exhibition, onClose }) => {
+const ExhibitionModal = ({ exhibition, currentIndex, exhibitions = [], onClose, onNextExhibition }) => {
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+
+  const handleNextExhibition = () => {
+    console.log('🔄 Next Exhibition clicked', { currentIndex, exhibitionsLength: exhibitions.length });
+    if (currentIndex !== null && exhibitions.length > 0) {
+      const nextIndex = (currentIndex + 1) % exhibitions.length;
+      const nextExhibition = exhibitions[nextIndex];
+      console.log('📍 Moving to exhibition:', { nextIndex, title: nextExhibition.title });
+      if (onNextExhibition) {
+        onNextExhibition(nextExhibition, nextIndex);
+        // Scroll modal content to top
+        setTimeout(() => {
+          const modalContent = document.querySelector('.exhibition-modal-content');
+          if (modalContent) {
+            modalContent.scrollTop = 0;
+          }
+        }, 0);
+      }
+    }
+  };
+
+  const handlePreviousExhibition = () => {
+    console.log('⬅️ Previous Exhibition clicked', { currentIndex, exhibitionsLength: exhibitions.length });
+    if (currentIndex !== null && exhibitions.length > 0) {
+      const prevIndex = currentIndex === 0 ? exhibitions.length - 1 : currentIndex - 1;
+      const prevExhibition = exhibitions[prevIndex];
+      console.log('📍 Moving to exhibition:', { prevIndex, title: prevExhibition.title });
+      if (onNextExhibition) {
+        onNextExhibition(prevExhibition, prevIndex);
+        // Scroll modal content to top
+        setTimeout(() => {
+          const modalContent = document.querySelector('.exhibition-modal-content');
+          if (modalContent) {
+            modalContent.scrollTop = 0;
+          }
+        }, 0);
+      }
+    }
+  };
   
   // Close on ESC key
   const handleEsc = useCallback((e) => {
@@ -44,7 +82,7 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
         onClick={onClose}
       >
         <div
-          className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+          className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl exhibition-modal-content"
           onClick={(e) => e.stopPropagation()}
         >
         {/* Close Button */}
@@ -209,13 +247,35 @@ const ExhibitionModal = ({ exhibition, onClose }) => {
           )}
 
           {/* Registration CTA */}
-          <div className="mt-8">
+          <div className="mt-8 flex gap-4">
+            {exhibitions.length > 1 && (
+              <button 
+                onClick={handlePreviousExhibition}
+                className="flex-1 bg-gradient-to-r from-gray-700 to-gray-900 text-white py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Previous Exhibition
+              </button>
+            )}
             <button 
               onClick={() => setShowRegistrationForm(true)}
-              className="w-full bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="flex-1 bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
               Register for Exhibition
             </button>
+            {exhibitions.length > 1 && (
+              <button 
+                onClick={handleNextExhibition}
+                className="flex-1 bg-gradient-to-r from-gray-700 to-gray-900 text-white py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              >
+                Next Exhibition
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
         </div>

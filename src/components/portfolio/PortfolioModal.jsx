@@ -1,8 +1,46 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import PortfolioProjectForm from './PortfolioProjectForm';
 
-const PortfolioModal = ({ item, onClose }) => {
+const PortfolioModal = ({ item, currentIndex, portfolios = [], onClose, onNextPortfolio }) => {
   const [showProjectForm, setShowProjectForm] = useState(false);
+
+  const handleNextPortfolio = () => {
+    console.log('🔄 Next Portfolio clicked', { currentIndex, portfoliosLength: portfolios.length });
+    if (currentIndex !== null && portfolios.length > 0) {
+      const nextIndex = (currentIndex + 1) % portfolios.length;
+      const nextItem = portfolios[nextIndex];
+      console.log('📍 Moving to portfolio:', { nextIndex, title: nextItem.title });
+      if (onNextPortfolio) {
+        onNextPortfolio(nextItem, nextIndex);
+        // Scroll modal content to top
+        setTimeout(() => {
+          const modalContent = document.querySelector('.modal-content');
+          if (modalContent) {
+            modalContent.scrollTop = 0;
+          }
+        }, 0);
+      }
+    }
+  };
+
+  const handlePreviousPortfolio = () => {
+    console.log('⬅️ Previous Portfolio clicked', { currentIndex, portfoliosLength: portfolios.length });
+    if (currentIndex !== null && portfolios.length > 0) {
+      const prevIndex = currentIndex === 0 ? portfolios.length - 1 : currentIndex - 1;
+      const prevItem = portfolios[prevIndex];
+      console.log('📍 Moving to portfolio:', { prevIndex, title: prevItem.title });
+      if (onNextPortfolio) {
+        onNextPortfolio(prevItem, prevIndex);
+        // Scroll modal content to top
+        setTimeout(() => {
+          const modalContent = document.querySelector('.modal-content');
+          if (modalContent) {
+            modalContent.scrollTop = 0;
+          }
+        }, 0);
+      }
+    }
+  };
   // Close on ESC key
   const handleEsc = useCallback((e) => {
     if (e.key === 'Escape') {
@@ -29,7 +67,7 @@ const PortfolioModal = ({ item, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl modal-content"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -130,13 +168,35 @@ const PortfolioModal = ({ item, onClose }) => {
           )}
 
           {/* CTA Button */}
-          <div className="mt-8">
+          <div className="mt-8 flex gap-4">
+            {portfolios.length > 1 && (
+              <button 
+                onClick={handlePreviousPortfolio}
+                className="flex-1 bg-gradient-to-r from-gray-700 to-gray-900 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Previous Portfolio
+              </button>
+            )}
             <button 
               onClick={() => setShowProjectForm(true)}
-              className="w-full bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="flex-1 bg-gradient-to-r from-[#c41e3a] to-[#8b0000] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
               Request Similar Project
             </button>
+            {portfolios.length > 1 && (
+              <button 
+                onClick={handleNextPortfolio}
+                className="flex-1 bg-gradient-to-r from-gray-700 to-gray-900 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              >
+                Next Portfolio
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -11,15 +11,15 @@ body,
 /* Custom hero height utilities */
 @layer components {
   .mobile-hero-sm {
-    @apply h-[50vh] md:h-[60vh];
+    @apply h-[35vh] md:h-[45vh];
   }
 
   .mobile-hero-md {
-    @apply h-[60vh] md:h-[70vh];
+    @apply h-[45vh] md:h-[55vh];
   }
 
   .mobile-hero-lg {
-    @apply h-[70vh] md:h-[80vh];
+    @apply h-[55vh] md:h-[65vh];
   }
 
   .mobile-section-container {

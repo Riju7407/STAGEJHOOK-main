@@ -7,6 +7,7 @@ const PortfolioGrid = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
 
   useEffect(() => {
     fetchPortfolios();
@@ -66,10 +67,13 @@ const PortfolioGrid = () => {
         <div className="max-w-7xl mx-auto">
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolios.map((item) => (
+            {portfolios.map((item, index) => (
               <div
                 key={item._id}
-                onClick={() => setSelectedItem(item)}
+                onClick={() => {
+                  setSelectedItem(item);
+                  setCurrentIndex(index);
+                }}
                 className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer aspect-[4/3] bg-gray-200"
               >
                 {/* Image */}
@@ -118,7 +122,13 @@ const PortfolioGrid = () => {
       {selectedItem && (
         <PortfolioModal
           item={selectedItem}
+          currentIndex={currentIndex}
+          portfolios={portfolios}
           onClose={() => setSelectedItem(null)}
+          onNextPortfolio={(nextItem, nextIndex) => {
+            setSelectedItem(nextItem);
+            setCurrentIndex(nextIndex);
+          }}
         />
       )}
     </>

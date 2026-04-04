@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import TopBar from "./components/common/TopBar";
 import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
+import FixedSocialWidget from "./components/common/FixedSocialWidget";
 import Portfolio from "./pages/Portfolio";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -80,6 +81,7 @@ function AppContent() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
 
+      {!isAdminPage && <FixedSocialWidget />}
       {!isAdminPage && <Footer />}
     </>
   );

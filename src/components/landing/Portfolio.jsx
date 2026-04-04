@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Clients from "./Clients";
 
 const Portfolio = () => {
+  const navigate = useNavigate();
   const portfolioItems = [
     {
       id: 1,
@@ -59,6 +61,7 @@ const Portfolio = () => {
             <div
               key={item.id}
               className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer"
+              onClick={() => navigate("/portfolio")}
             >
               <img
                 src={item.image}
